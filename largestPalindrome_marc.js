@@ -8,7 +8,7 @@
 //  0. Obtain this file from https://github.com/ankur-cp/largest_palindrome_solution
 //  1. Rename this file, substituting "yourname" with your name
 //  2. Replace "yourname" with your name in the variable below
-exports.name = "yourname";
+exports.name = "marc";
 //  3. Add your optimizations to the solution below
 //  4. Submit a pull request
 
@@ -16,9 +16,16 @@ exports.name = "yourname";
 isPalindrome = (num) => {
   // determine if input value matches it's reversed value (i.e. check if it's a palindrome!)
   strNum = num.toString();
-  return strNum === strNum.split("").reverse().join("");
+  // return strNum === strNum.split("").reverse().join("");
+  let left = 0;
+	let right = strNum.length -1;
+	while (left < right) {
+		if (strNum[left] !== strNum[right]) return false;
+		left++;
+		right--;
+	}
+	return true;
 }
-
 
 exports.getLargestPalindrome = (N) => {
 
