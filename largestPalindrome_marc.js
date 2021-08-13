@@ -16,7 +16,7 @@ exports.name = "marc";
 isPalindrome = (num) => {
   // determine if input value matches it's reversed value (i.e. check if it's a palindrome!)
   strNum = num.toString();
-  // return strNum === strNum.split("").reverse().join("");
+
   let left = 0;
 	let right = strNum.length -1;
 	while (left < right) {
@@ -31,27 +31,67 @@ exports.getLargestPalindrome = (N) => {
 
   let largestPalindrome = 0;
 
-  // iterate through range of multiplicands
-  for (let i = 10 ** (N - 1); i < 10 ** N; i++) {
-      
-    for (let j = 10 ** (N - 1); j < 10 ** N; j++) {
+  
+  let lowerbound = 10 ** (N -1)
+  let upperbound = ((10 ** N)-1)
 
-      // check if the product is a palindrome
-      if (isPalindrome(i * j)) {
+  const middle = Math.floor((lowerbound + upperbound) / 2 );
 
-        // check if it's larger than our largest palindrome
-        if (i * j > largestPalindrome) {
-                  
-          // update largest palindrome
-          largestPalindrome = i * j;
-        }
+  for (let i=upperbound; i >= middle; i--){
+    for (let j=i; j >= middle; j--){
+      let product = i * j;
+      if (product <= largestPalindrome){
+        break;
       }
+      if (isPalindrome(i * j)) {
+          largestPalindrome = i * j
+        }
     }
+    
   }
-
-  // return result
-  return largestPalindrome;
+  if (largestPalindrome !== 0){
+    return largestPalindrome
+  } else {
+    upperbound = middle
+    for (let i=upperbound; i >= lowerbound; i--){
+      for (let j=i; j >= lowerbound; j--){
+        let product = i * j;
+        if (product <= largestPalindrome){
+          break;
+        }
+        if (isPalindrome(i * j)) {
+            largestPalindrome = i * j
+          }
+      }
+      
+    }
+    return largestPalindrome
+  }
+  
 }
+
+
+  // iterate through range of multiplicands
+//   for (let i = 10 ** (N - 1); i < 10 ** N; i++) {
+      
+//     for (let j = 10 ** (N - 1); j < 10 ** N; j++) {
+
+//       // check if the product is a palindrome
+//       if (isPalindrome(i * j)) {
+
+//         // check if it's larger than our largest palindrome
+//         if (i * j > largestPalindrome) {
+                  
+//           // update largest palindrome
+//           largestPalindrome = i * j;
+//         }
+//       }
+//     }
+//   }
+
+//   // return result
+//   return largestPalindrome;
+// }
 
 // input
 const N = 3;
